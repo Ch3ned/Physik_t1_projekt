@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energieversorgung - Wissenschaftliche Lernplattform</title>
+    <style>
+        :root {
+            --primary-color: #2b6777;
+            --secondary-color: #52ab98;
+            --accent-color: #c8d8e4;
+            --text-color: #333333;
+            --bg-color: #f2f2f2;
+            --card-bg: #ffffff;
+            --footer-bg: #2b6777;
+            --footer-text: #ffffff;
+            --success-green: #4CAF50;
+            --warning-orange: #FF9800;
+            --error-red: #F44336;
+        }
+
+        .dark-mode {
+            --primary-color: #1e3d4a;
+            --secondary-color: #3a7d7a;
+            --accent-color: #2b6777;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --footer-bg: #121212;
+            --footer-text: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            transition: all 0.4s ease;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 500;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        nav a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .active-nav {
+            background-color: var(--secondary-color);
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5em;
+            font-size: 1.4rem;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-container p {
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--accent-color);
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(82, 171, 152, 0.1);
+        }
+
+        .comparison-table tr:hover {
+            background-color: rgba(82, 171, 152, 0.2);
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .active {
+            display: block;
+        }
+
+        .simulation-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+            background-color: rgba(200, 216, 228, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .simulation-controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .simulation-result {
+            background-color: rgba(82, 171, 152, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        button, select, input {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 5px;
+            padding: 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 450px;
+            margin: 30px 0;
+        }
+
+        .energy-source-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .energy-source-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .energy-source-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .energy-source-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .energy-source-card p {
+            margin: 8px 0;
+        }
+
+        .info-box {
+            background-color: rgba(82, 171, 152, 0.1);
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .formula {
+            background-color: rgba(200, 216, 228, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px dashed var(--secondary-color);
+        }
+
+        .example-box {
+            background-color: rgba(75, 192, 192, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #4bc0c0;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: #4bc0c0;
+            margin-bottom: 10px;
+        }
+
+        .particle-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .entropy-visualization {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .entropy-states {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .entropy-state {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .entropy-state h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        .energy-distribution {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .energy-category {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .energy-category h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--accent-color);
+            border-radius: 5px;
+            margin: 10px 0;
+            height: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            transition: width 1s ease;
+        }
+
+        .comparison-container {
+            display: flex;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .comparison-item {
+            flex: 1;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .comparison-item h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        .data-point {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .data-label {
+            font-weight: 500;
+        }
+
+        .data-value {
+            font-weight: 600;
+        }
+
+        .everyday-comparison {
+            background-color: rgba(255, 193, 7, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #FFC107;
+        }
+
+        .everyday-title {
+            font-weight: bold;
+            color: #FFC107;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            nav li {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .comparison-container {
+                flex-direction: column;
+            }
+
+            .entropy-states {
+                flex-direction: column;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Animation for particles */
+        @keyframes particleMove {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(5px, 5px); }
+            50% { transform: translate(0, 10px); }
+            75% { transform: translate(-5px, 5px); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="theme-toggle" id="themeToggle">
+            <span id="themeIcon">🌙</span>
+            <span id="themeText">Dark Mode</span>
+        </button>
+        <h1>Energieversorgung</h1>
+        <p>Eine wissenschaftliche Lernplattform zur Thermodynamik und nachhaltigen Energie</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#" class="nav-link active-nav" data-section="home">Startseite</a></li>
+            <li><a href="#" class="nav-link" data-section="reversible">Reversible & irreversible Vorgänge</a></li>
+            <li><a href="#" class="nav-link" data-section="entropy">Entropie & Wärmekraftwerke</a></li>
+            <li><a href="#" class="nav-link" data-section="energy-sources">Energieträger & -quellen</a></li>
+            <li><a href="#" class="nav-link" data-section="energy-village">Energiedörfer</a></li>
+            <li><a href="#" class="nav-link" data-section="personal-energy">Persönlicher Energiebedarf</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Startseite -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h2>Wissenschaftliche Plattform zur Energieversorgung</h2>
+                <p>Ein umfassender Leitfaden zu Thermodynamik, Energiewandlung und nachhaltiger Energieversorgung</p>
+            </div>
+
+            <div class="card">
+                <h2>Über diese Plattform</h2>
+                <p>Diese wissenschaftliche Plattform wurde entwickelt, um ein tiefgreifendes Verständnis der physikalischen Grundlagen der Energieversorgung zu vermitteln. Wir verbinden theoretische Konzepte der Thermodynamik mit praktischen Anwendungen der modernen Energieversorgung.</p>
+                
+                <div class="image-container">
+                    <img src="https://www.energiezukunft.eu/fileadmin/user_upload/Bilder/Erneuerbare_Energien/andrey-metelev-qpAOxji4dAo-unsplash.jpg" alt="Energieversorgung">
+                    <p>Quelle : Energiezukunft (Stromnetz)</p>
+                </div>
+                
+                <h3>Themenbereiche dieser Plattform</h3>
+                <div class="energy-distribution">
+                    <div class="energy-category">
+                        <h4>Thermodynamische Grundlagen</h4>
+                        <p>Reversible und irreversible Prozesse, Entropie, Wärmekraftmaschinen und die Hauptsätze der Thermodynamik</p>
+                    </div>
+                    <div class="energy-category">
+                        <h4>Energiewandlung</h4>
+                        <p>Effizienz von Energieumwandlungsprozessen, Carnot-Wirkungsgrad, Exergie und Anergie</p>
+                    </div>
+                    <div class="energy-category">
+                        <h4>Energieträger</h4>
+                        <p>Physikalische und chemische Eigenschaften verschiedener Energieträger, Speichermethoden</p>
+                    </div>
+                    <div class="energy-category">
+                        <h4>Nachhaltige Systeme</h4>
+                        <p>Energiedörfer, dezentrale Versorgung, Integration erneuerbarer Energien</p>
+                    </div>
+                </div>
+                
+                <h3>Struktur der Inhalte</h3>
+                <div class="info-box">
+                    <div class="info-box-title">Theoretische Grundlagen</div>
+                    <p>Die Abschnitte zu reversiblen/irreversiblen Prozessen und Entropie vermitteln die wissenschaftlichen Grundlagen der Energieumwandlung.</p>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-box-title">Praktische Anwendungen</div>
+                    <p>Die Themen zu Energieträgern und Energiedörfern zeigen die Umsetzung der theoretischen Konzepte in realen Systemen.</p>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-box-title">Persönlicher Bezug</div>
+                    <p>Der Bereich zum persönlichen Energiebedarf ermöglicht eine individuelle Auseinandersetzung mit dem Thema Energie.</p>
+                </div>
+
+                <h3>Über dieses Projekt</h3>
+                <p>Diese Website wurde erstellt, um ein umfassendes Verständnis der Energieversorgung und ihrer verschiedenen Aspekte zu vermitteln. Wir behandeln folgende Themen:</p>
+                
+                <ul>
+                    <li><strong>Reversible und irreversible Vorgänge:</strong> Der Unterschied und ihre Bedeutung im Alltag</li>
+                    <li><strong>Entropie und Wärmekraftwerke:</strong> Wie Energieumwandlung funktioniert und warum Kühlung notwendig ist</li>
+                    <li><strong>Energieträger und -quellen:</strong> Primär- vs. Sekundärenergie, regenerativ vs. nicht-regenerativ</li>
+                    <li><strong>Energiedörfer:</strong> Lokale Lösungen für die Energiewende am Beispiel Wildpoldsried</li>
+                    <li><strong>Persönlicher Energiebedarf:</strong> Wie viel Energie verbrauchen wir täglich und wie können wir sparen?</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Reversible und irreversible Vorgänge -->
+        <section id="reversible" class="section">
+            <div class="card">
+                <h2>Reversible und irreversible Vorgänge</h2>
+                <p>In der Thermodynamik unterscheiden wir zwischen reversiblen und irreversiblen Prozessen. Diese Unterscheidung ist grundlegend für das Verständnis von Energieumwandlungen.</p>
+                
+                <h3>Was sind reversible Vorgänge?</h3>
+                <p>Ein reversibler Prozess ist ein idealisierter Vorgang, der in beide Richtungen ablaufen kann, ohne dass dabei Energie verloren geht oder Entropie erzeugt wird. In der Praxis sind solche Prozesse nicht vollständig realisierbar, aber sie dienen als wichtiges theoretisches Modell.</p>
+                
+                <div class="image-container">
+                    <img src="https://www.parkamgleisdreieck.de/fileadmin/_processed_/5/e/csm_parkamgleisdreieck_sport_schaukeln_c_andyrumball_1e5f9d4a2f.jpg" alt="Reversibler Prozess">
+                    <p>Schaukel ohne Reibung , Quelle : parkamgleisdreieck</p>
+                </div>
+                
+                <h3>Was sind irreversible Vorgänge?</h3>
+                <p>Irreversible Prozesse sind Vorgänge, die nur in eine Richtung ablaufen können und dabei Entropie erzeugen. Alle natürlichen Prozesse sind irreversibel, da immer Energie in Form von Wärme verloren geht.</p>
+                
+                <div class="image-container">
+                    <img src="https://www.merkur.de/assets/images/35/204/35204600-zerbrochenes-glas-2nqaJUKxLN7d.jpg" alt="Irreversibler Prozess">
+                    <p>Glass bricht , Quelle: Merkur</p>
+                </div>
+                
+                <h3>Vergleichstabelle</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Eigenschaft</th>
+                        <th>Reversible Vorgänge</th>
+                        <th>Irreversible Vorgänge</th>
+                    </tr>
+                    <tr>
+                        <td>Richtung</td>
+                        <td>Können in beide Richtungen ablaufen</td>
+                        <td>Laufen nur in eine Richtung ab</td>
+                    </tr>
+                    <tr>
+                        <td>Entropie</td>
+                        <td>Keine Entropieerzeugung</td>
+                        <td>Entropie wird erzeugt</td>
+                    </tr>
+                    <tr>
+                        <td>Energieverlust</td>
+                        <td>Kein Energieverlust</td>
+                        <td>Energie geht als Wärme verloren</td>
+                    </tr>
+                    <tr>
+                        <td>Beispiele</td>
+                        <td>Ideales Pendel (ohne Reibung), ideale chemische Gleichgewichte</td>
+                        <td>Verbrennungsprozesse, Wärmeleitung, Reibung</td>
+                    </tr>
+                    <tr>
+                        <td>Praktische Realisierung</td>
+                        <td>Nur näherungsweise möglich</td>
+                        <td>Alle natürlichen Prozesse</td>
+                    </tr>
+                </table>
+                
+                <h3>Beispiele aus dem Alltag</h3>
+                <p><strong>Reversible Vorgänge (annähernd):</strong></p>
+                <ul>
+                    <li>Laden und Entladen eines Akkus unter idealen Bedingungen</li>
+                    <li>Elastische Verformung (z.B. Feder)</li>
+                    <li>Idealisierte chemische Reaktionen im Gleichgewicht</li>
+                </ul>
+                
+                <p><strong>Irreversible Vorgänge:</strong></p>
+                <ul>
+                    <li>Verbrennung von Benzin im Motor</li>
+                    <li>Kochen von Wasser</li>
+                    <li>Mischen von heißem und kaltem Wasser</li>
+                    <li>Reibung (z.B. Bremsen eines Fahrrads)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://cdn.pixabay.com/photo/2013/07/13/12/44/engine-160230_960_720.png" alt="Verbrennungsmotor">
+                    <p>Verbrennungsmotors - ein Beispiel für irreversible Prozesse ,Quelle: Pixabay </p>
+                </div>
+
+                <h3>Reversible Prozesse: Theoretische Idealisierung</h3>
+                <p>Ein reversibler Prozess ist ein hypothetischer Vorgang, der jederzeit umgekehrt werden kann, ohne dass dabei Entropie erzeugt wird. Solche Prozesse laufen unendlich langsam ab und befinden sich stets im thermodynamischen Gleichgewicht.</p>
+                
+                <div class="formula">
+                    ΔS<sub>rev</sub> = 0 (für das Gesamtsystem)
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">Beispiel: Reversible isotherme Expansion</div>
+                    <p>Ein ideales Gas expandiert langsam in einem Zylinder mit beweglichem Kolben, während es mit einem Wärmebad in Kontakt steht, das die Temperatur konstant hält. Der Prozess kann durch langsame Kompression genau umgekehrt werden, wobei das System und die Umgebung in ihren Ausgangszustand zurückkehren.</p>
+                </div>
+                
+                <h3>Irreversible Prozesse: Die Realität</h3>
+                <p>Alle natürlichen Prozesse sind irreversibel. Sie laufen spontan in eine Richtung ab und erzeugen dabei Entropie. Irreversible Prozesse sind durch Dissipation (Energieverlust) und endliche Geschwindigkeit gekennzeichnet.</p>
+                
+                <div class="formula">
+                    ΔS<sub>irrev</sub> > 0 (für das Universum)
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">Beispiel: Freie Expansion</div>
+                    <p>Ein Gas expandiert plötzlich in ein Vakuum. Dieser Prozess kann nicht spontan rückgängig gemacht werden - das Gas wird nicht von selbst wieder in den ursprünglichen Behälter zurückkehren. Die Entropie des Systems erhöht sich dabei.</p>
+                </div>
+
+                <h3>Energieumwandlung und Wirkungsgrad</h3>
+                <p>Der zweite Hauptsatz der Thermodynamik begrenzt den Wirkungsgrad von Energieumwandlungsprozessen. Für einen reversiblen Prozess zwischen zwei Wärmebädern bei Temperaturen T<sub>h</sub> (heiß) und T<sub>c</sub> (kalt) ist der maximale Wirkungsgrad gegeben durch:</p>
+                
+                <div class="formula">
+                    η<sub>max</sub> = 1 - T<sub>c</sub>/T<sub>h</sub> (Carnot-Wirkungsgrad)
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Wirkungsgrade</div>
+                    <p>Ein modernes Kohlekraftwerk hat einen Wirkungsgrad von etwa 45%. Das bedeutet, dass von 100 Einheiten Energie in der Kohle, nur 45 Einheiten als Strom genutzt werden können. Die restlichen 55 Einheiten gehen als Abwärme verloren - das entspricht etwa der Energie von 5500 Wasserkochern, die gleichzeitig eine Stunde lang laufen!</p>
+                </div>
+                
+                <p>In der Praxis erreichen reale Prozesse aufgrund von Irreversibilitäten nur einen Bruchteil dieses theoretischen Maximums.</p>
+                
+                <div class="simulation-container">
+                    <h4>Wirkungsgrad-Simulation</h4>
+                    <div class="simulation-controls">
+                        <label for="hotTemp">Heiße Temperatur (T<sub>h</sub> in K):</label>
+                        <input type="range" id="hotTemp" min="300" max="1000" value="600" step="10">
+                        <span id="hotTempValue">600</span>
+                        
+                        <label for="coldTemp">Kalte Temperatur (T<sub>c</sub> in K):</label>
+                        <input type="range" id="coldTemp" min="200" max="500" value="300" step="10">
+                        <span id="coldTempValue">300</span>
+                    </div>
+                    
+                    <div class="simulation-result">
+                        <div class="data-point">
+                            <span class="data-label">Carnot-Wirkungsgrad:</span>
+                            <span class="data-value" id="carnotEfficiency">50.00%</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="data-label">Typischer realer Wirkungsgrad:</span>
+                            <span class="data-value" id="realEfficiency">30.00%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="efficiencyBar" style="width: 50%"></div>
+                        </div>
+                        <p>Der Carnot-Wirkungsgrad stellt die theoretische Obergrenze dar. Reale Systeme erreichen aufgrund von Irreversibilitäten (Reibung, Wärmeverluste, etc.) typischerweise nur 60-80% dieses Werts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entropie und Wärmekraftwerke -->
+        <section id="entropy" class="section">
+            <div class="card">
+                <h2>Entropie und Wärmekraftwerke</h2>
+                <p>Die Entropie ist ein zentrales Konzept in der Thermodynamik, das die Unumkehrbarkeit von Prozessen und die Qualität von Energie beschreibt.</p>
+                
+                <h3>Was ist Entropie?</h3>
+                <p>Entropie (S) ist ein Maß für die Unordnung eines Systems und die Anzahl der möglichen Mikrozustände, die einem Makrozustand entsprechen. Die Einheit der Entropie ist Joule pro Kelvin (J/K).</p>
+                
+                <p>Die Entropieänderung ΔS bei einem Prozess berechnet sich nach:</p>
+                <p style="text-align: center; font-size: 1.2em;">ΔS = Q<sub>rev</sub> / T</p>
+                <p>wobei Q<sub>rev</sub> die bei reversibler Prozessführung ausgetauschte Wärme und T die absolute Temperatur ist.</p>
+                
+                <div class="image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Entropy_and_diffusion_%28de%29.svg/800px-Entropy_and_diffusion_%28de%29.svg.png?20100427070841" alt="Entropie Modell">
+                    <p>Modell zur Veranschaulichung von Entropie, Quelle: Wikimedia Commons</p>
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Entropie</div>
+                    <p>Wenn Sie ein Glas Wasser mit einem Eiswürfel betrachten, hat das System eine relativ niedrige Entropie (geordneter Zustand). Wenn das Eis schmilzt und sich vollständig mit dem Wasser vermischt, erhöht sich die Entropie. Dieser Prozess ist irreversibel - das Wasser wird nicht von selbst wieder zu einem Eiswürfel werden.</p>
+                </div>
+                
+                <h3>Entropie auf Teilchenebene</h3>
+                <p>Je höher die Temperatur eines Systems, desto größer ist die Bewegung der Teilchen und desto mehr mögliche Anordnungen (Mikrozustände) gibt es. Die Entropie nimmt zu.</p>
+                
+                <div class="simulation-container">
+                    <div class="simulation-controls">
+                        <label for="temperature">Temperatur (K):</label>
+                        <input type="range" id="temperature" min="100" max="500" value="300" step="10">
+                        <span id="tempValue">300</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <canvas id="particleCanvas" width="600" height="300" style="border:1px solid #000; background-color: #f0f0f0;"></canvas>
+                    </div>
+                    <div class="simulation-result">
+                        <p>Aktuelle Temperatur: <span id="currentTemp">300</span> K</p>
+                        <p>Entropie des Systems: <span id="entropyValue">1.00</span> J/K (relativer Wert)</p>
+                        <p>Beobachtung: <span id="observation">Bei mittlerer Temperatur bewegen sich die Teilchen mäßig schnell, die Entropie ist mittelgroß.</span></p>
+                    </div>
+                </div>
+                
+                <h3>Warum Kühlung für Wärmekraftwerke notwendig ist</h3>
+                <p>Aus physikalischer Sicht ist Kühlung aus zwei Hauptgründen notwendig:</p>
+                
+                <ol>
+                    <li><strong>Zweiter Hauptsatz der Thermodynamik:</strong> 
+                        <p>Nach dem zweiten Hauptsatz kann Wärme nur dann in Arbeit umgewandelt werden, wenn ein Temperaturunterschied vorliegt. Die Kühlung schafft das notwendige Temperaturgefälle zwischen Wärmequelle (z.B. Dampf) und Wärmesenke (Kühlwasser).</p>
+                        <p style="text-align: center;">η = 1 - T<sub>kalt</sub>/T<sub>warm</sub></p>
+                        <p>wobei η der maximale Wirkungsgrad ist, T<sub>kalt</sub> die Temperatur der Kühlung und T<sub>warm</sub> die Temperatur der Wärmequelle.</p>
+                    </li>
+                    <li><strong>Entropieerzeugung:</strong>
+                        <p>Bei jeder Energieumwandlung entsteht Entropie. Die Kühlung ermöglicht die Abfuhr dieser Entropie aus dem System. Ohne Kühlung würde die Entropie im System anwachsen, bis kein nutzbarer Temperaturunterschied mehr vorhanden wäre.</p>
+                    </li>
+                </ol>
+                
+                <div class="image-container">
+                    <img src="https://www.paz-online.de/resizer/v2/7Y5LZFV75NHIZL3DYS6Q3RTDVY.jpg?auth=7b1729ca229cb070c9d27d12eaf4d0448c065ea859436fbcb243fd1fa88390be&quality=70&width=1284&height=722&smart=true" alt="Kraftwerk mit Kühlturm">
+                    <p>Kraftwerks , Quelle: paz-online</p>
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Kühlung</div>
+                    <p>Ein typisches Kohlekraftwerk mit 1 GW Leistung benötigt etwa 50.000 Liter Kühlwasser pro Minute. Das entspricht dem Inhalt von 25 durchschnittlichen Swimmingpools, die jede Minute durch das Kraftwerk fließen!</p>
+                </div>
+                
+                <h3>Was passieren würde ohne Kühlung?</h3>
+                <ul>
+                    <li>Der Wirkungsgrad würde gegen Null gehen, da kein Temperaturgefälle mehr vorhanden wäre</li>
+                    <li>Die Turbinen könnten nicht mehr betrieben werden, da der Dampf nicht mehr kondensieren würde</li>
+                    <li>Die Anlage würde überhitzen und schwerwiegende Schäden erleiden</li>
+                    <li>Die Entropie im System würde unkontrolliert ansteigen</li>
+                </ul>
+                
+                <h3>Energieflussdiagramm eines Wärmekraftwerks</h3>
+                <div class="image-container">
+                    <img src="https://blog.assets.studyflix.de/wp-content/uploads/2022/02/02_Stoff-und-Energiefl%C3%BCsse-2-1024x576.jpg" alt="Energieflussdiagramm">
+                    <p>Energiefluss in einem Kohlekraftwerk , Quelle: Studyflix</p>
+                </div>
+                
+                <p>Typische Wirkungsgrade von Wärmekraftwerken liegen zwischen 30% und 60%, abhängig von der Technologie. Der Rest der Energie geht als Abwärme verloren, was eine direkte Konsequenz des zweiten Hauptsatzes der Thermodynamik und der Entropieerzeugung ist.</p>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Wirkungsgrade</div>
+                    <p>Ein modernes Gaskraftwerk mit 60% Wirkungsgrad erzeugt aus 100 Einheiten Primärenergie (Erdgas) 60 Einheiten Strom. Die restlichen 40 Einheiten gehen als Abwärme verloren - genug, um etwa 400 Haushalte ein Jahr lang zu heizen!</p>
+                </div>
+                
+                <h3>Entropie im Alltag</h3>
+                <p>Entropie ist nicht nur in Kraftwerken wichtig, sondern überall in unserem Alltag spürbar:</p>
+                
+                <ul>
+                    <li><strong>Kühlschrank:</strong> Arbeitet gegen die natürliche Entropiezunahme, indem er Wärme aus dem kälteren Innenraum in die wärmere Umgebung pumpt (verbraucht dabei Energie)</li>
+                    <li><strong>Zimmer aufräumen:</strong> Unordnung (Entropie) nimmt von selbst zu - Aufräumen erfordert Energie</li>
+                    <li><strong>Wärmeleitung:</strong> Wärme fließt immer von warm nach kalt, nie umgekehrt (Entropiezunahme)</li>
+                    <li><strong>Lebensprozesse:</strong> Organismen halten ihre Entropie niedrig, indem sie Energie aufnehmen und Entropie an die Umwelt abgeben</li>
+                </ul>
+
+                <h3>Statistische Interpretation der Entropie</h3>
+                <p>Ludwig Boltzmann verband Entropie mit der Anzahl Ω der Mikrozustände, die einem Makrozustand entsprechen:</p>
+                
+                <div class="formula">
+                    S = k<sub>B</sub> ln Ω
+                </div>
+                
+                <p>wobei k<sub>B</sub> die Boltzmann-Konstante (1.38×10<sup>-23</sup> J/K) ist.</p>
+                
+                <div class="entropy-visualization">
+                    <div class="entropy-states">
+                        <div class="entropy-state">
+                            <h4>Geordneter Zustand</h4>
+                            <p>Wenige Mikrozustände</p>
+                            <p>Niedrige Entropie</p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 20px); gap: 5px; justify-content: center;">
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                            </div>
+                        </div>
+                        <div class="entropy-state">
+                            <h4>Teilweise geordnet</h4>
+                            <p>Mehr Mikrozustände</p>
+                            <p>Mittlere Entropie</p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 20px); gap: 5px; justify-content: center;">
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: blue; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: blue; height: 20px; border-radius: 50%;"></div>
+                            </div>
+                        </div>
+                        <div class="entropy-state">
+                            <h4>Ungeordneter Zustand</h4>
+                            <p>Viele Mikrozustände</p>
+                            <p>Hohe Entropie</p>
+                            <div style="display: grid; grid-template-columns: repeat(2, 20px); gap: 5px; justify-content: center;">
+                                <div style="background-color: blue; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: blue; height: 20px; border-radius: 50%;"></div>
+                                <div style="background-color: red; height: 20px; border-radius: 50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Energieträger & -quellen -->
+        <section id="energy-sources" class="section">
+            <div class="card">
+                <h2>Energieträger & -quellen</h2>
+                <p>Energiequellen lassen sich nach verschiedenen Kriterien einteilen. Zwei wichtige Unterscheidungen sind Primär- vs. Sekundärenergie und regenerative vs. nicht-regenerative Energiequellen.</p>
+                
+                <h3>Primär- vs. Sekundärenergie</h3>
+                <ul>
+                    <li><strong>Primärenergie:</strong> Energie, die in der Natur vorkommt und noch nicht umgewandelt wurde (z.B. Kohle, Erdöl, Sonnenstrahlung, Wind)</li>
+                    <li><strong>Sekundärenergie:</strong> Aus Primärenergie gewandelte Energieformen (z.B. Strom, Benzin, Fernwärme)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://blog.assets.studyflix.de/wp-content/uploads/2021/10/Energieflussdiagramm-Solarzelle_WP-1024x576.jpg" alt="Energieflussdiagramm">
+                    <p>Energieflussdiagramm Quelle: Studyflix</p>
+                </div>
+                
+                <h3>Regenerative vs. nicht-regenerative Energiequellen</h3>
+                <ul>
+                    <li><strong>Regenerativ (erneuerbar):</strong> Energiequellen, die sich kurzfristig erneuern oder praktisch unerschöpflich sind (z.B. Sonne, Wind, Wasserkraft, Biomasse)</li>
+                    <li><strong>Nicht-regenerativ:</strong> Energiequellen, die nur begrenzt vorhanden sind und sich nicht in menschlichen Zeiträumen erneuern (z.B. Kohle, Erdöl, Erdgas, Uran)</li>
+                </ul>
+                
+                <div class="energy-source-grid">
+                    <div class="energy-source-card">
+                        <h3>Fossile Energieträger</h3>
+                        <p>Kohle, Erdöl, Erdgas</p>
+                        <p>Nicht-regenerativ</p>
+                        <p>Vorteile: Hohe Energiedichte, gut speicherbar</p>
+                        <p>Nachteile: CO2-Emissionen, begrenzte Vorräte</p>
+                        <div class="everyday-comparison">
+                            <p>1 kg Steinkohle ≈ 8 kWh ≈ 80 Stunden LED-Beleuchtung (100W)</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h3>Kernenergie</h3>
+                        <p>Uran, Plutonium</p>
+                        <p>Nicht-regenerativ</p>
+                        <p>Vorteile: Keine CO2-Emissionen, hohe Energiedichte</p>
+                        <p>Nachteile: Radioaktiver Abfall, Sicherheitsrisiken</p>
+                        <div class="everyday-comparison">
+                            <p>1 kg Uran ≈ 24.000.000 kWh ≈ Strom für 8.000 Haushalte/Jahr</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h3>Sonnenenergie</h3>
+                        <p>Photovoltaik, Solarthermie</p>
+                        <p>Regenerativ</p>
+                        <p>Vorteile: Unerschöpflich, keine Emissionen</p>
+                        <p>Nachteile: Fluktuierend, benötigt große Flächen</p>
+                        <div class="everyday-comparison">
+                            <p>1 m² Solarpanel ≈ 150-200 kWh/Jahr ≈ 15-20 Ladungen E-Auto</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h3>Windenergie</h3>
+                        <p>Onshore, Offshore</p>
+                        <p>Regenerativ</p>
+                        <p>Vorteile: Geringe Betriebskosten, keine Emissionen</p>
+                        <p>Nachteile: Fluktuierend, Landschaftsveränderung</p>
+                        <div class="everyday-comparison">
+                            <p>1 Windrad (3 MW) ≈ 6.000.000 kWh/Jahr ≈ Strom für 1.500 Haushalte</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h3>Wasserkraft</h3>
+                        <p>Laufwasser, Speicherkraftwerke</p>
+                        <p>Regenerativ</p>
+                        <p>Vorteile: Regelbar, hoher Wirkungsgrad</p>
+                        <p>Nachteile: Eingriffe in Ökosysteme</p>
+                        <div class="everyday-comparison">
+                            <p>1 m³ Wasser (100m Fallhöhe) ≈ 1 kWh ≈ 10 Stunden Fernsehen</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h3>Biomasse</h3>
+                        <p>Holz, Biogas, Bioethanol</p>
+                        <p>Regenerativ</p>
+                        <p>Vorteile: Speicherbar, vielseitig nutzbar</p>
+                        <p>Nachteile: Konkurrenz zu Nahrungsmitteln</p>
+                        <div class="everyday-comparison">
+                            <p>1 kg Holz ≈ 4 kWh ≈ 40 Minuten Staubsaugen</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Entwicklung des Primärenergiebedarfs</h3>
+                <div class="simulation-controls">
+                    <label for="countrySelect">Land auswählen:</label>
+                    <select id="countrySelect">
+                        <option value="germany">Deutschland</option>
+                        <option value="europe">Europäische Länder (Durchschnitt)</option>
+                        <option value="usa">USA</option>
+                        <option value="china">China</option>
+                        <option value="world">Welt</option>
+                    </select>
+                    <button id="updateChart">Diagramm aktualisieren</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+                
+                <h3>Infrastruktur der Energieversorgung in Europa</h3>
+                <p>Die europäische Energieinfrastruktur umfasst:</p>
+                <ul>
+                    <li><strong>Stromnetze:</strong> Hochspannungs-Gleichstrom-Übertragung (HGÜ), Wechselstromnetze</li>
+                    <li><strong>Pipelines:</strong> Für Erdgas, Erdöl und Produkte</li>
+                    <li><strong>Speicher:</strong> Pumpspeicherkraftwerke, Gasspeicher</li>
+                    <li><strong>Kraftwerke:</strong> Verteilt über den Kontinent</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://scr.wfcdn.de/24681/Europaeisches-Superstromnetz-1644595053-0-12.jpg" alt="Europäisches Stromnetz">
+                    <p>Europäisches Stromübertragungsnetz , Quelle: Winfuture</p>
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Stromnetz</div>
+                    <p>Das europäische Stromnetz hat eine Gesamtlänge von über 300.000 km Hochspannungsleitungen - das entspricht etwa 7,5 Mal dem Erdumfang! Jede Sekunde fließt genug Strom durch das Netz, um 10.000 Haushalte zu versorgen.</p>
+                </div>
+                
+                <h4>Zeitliche Entwicklung</h4>
+                <ul>
+                    <li><strong>1950-1970:</strong> Nationale Netze, starke Abhängigkeit von Kohle</li>
+                    <li><strong>1970-1990:</strong> Ausbau der Erdgasinfrastruktur, erste grenzüberschreitende Verbindungen</li>
+                    <li><strong>1990-2010:</strong> Liberalisierung der Märkte, verstärkter internationaler Stromhandel</li>
+                    <li><strong>2010-heute:</strong> Integration erneuerbarer Energien, Smart Grids, europäischer Energiebinnenmarkt</li>
+                </ul>
+                
+                <h3>Übergang zu erneuerbaren Energien: China</h3>
+                <p>China hat in den letzten Jahren massive Investitionen in erneuerbare Energien getätigt:</p>
+                <ul>
+                    <li>Weltweit führend in installierter Wind- und Solarkapazität</li>
+                    <li>Ausbau der Wasserkraft (z.B. Drei-Schluchten-Damm)</li>
+                    <li>Gleichzeitig weiterhin starke Abhängigkeit von Kohle</li>
+                    <li>Ambitionierte Ziele für CO2-Neutralität (vor 2060)</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://media0.faz.net/ppmedia/aktuell/wirtschaft/3210582340/1.3351176/default-retina/der-drei-schluchten-staudamm.jpg.webp" alt="Drei-Schluchten-Damm">
+                    <p>Drei-Schluchten-Damm in China, Quelle: FAZ</p>
+                </div>
+
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Drei-Schluchten-Damm</div>
+                    <p>Der Drei-Schluchten-Damm in China ist das größte Kraftwerk der Welt mit einer Leistung von 22.500 MW. Das entspricht etwa 15 großen Kohlekraftwerken oder der Leistung von 22 Millionen modernen Staubsaugern gleichzeitig!</p>
+                </div>
+
+                <h3>Wissenschaftlicher Vergleich der Energieträger</h3>
+                <div class="chart-container">
+                    <canvas id="energyComparisonChart"></canvas>
+                </div>
+                
+                <h3>Physikalische Eigenschaften wichtiger Energieträger</h3>
+                
+                <div class="energy-source-grid">
+                    <div class="energy-source-card">
+                        <h4>Steinkohle</h4>
+                        <p><strong>Energiedichte:</strong> 24-30 MJ/kg</p>
+                        <p><strong>CO2-Emissionen:</strong> 340 g CO2/kWh</p>
+                        <p><strong>Wirkungsgrad (Strom):</strong> 35-45%</p>
+                        <p><strong>Speicherbarkeit:</strong> Hoch</p>
+                        <div class="everyday-comparison">
+                            <p>1 kg ≈ 8 kWh ≈ 80 Stunden LED-Licht</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h4>Erdgas</h4>
+                        <p><strong>Energiedichte:</strong> 36-40 MJ/m³</p>
+                        <p><strong>CO2-Emissionen:</strong> 200 g CO2/kWh</p>
+                        <p><strong>Wirkungsgrad (Strom):</strong> 50-60%</p>
+                        <p><strong>Speicherbarkeit:</strong> Mittel</p>
+                        <div class="everyday-comparison">
+                            <p>1 m³ ≈ 10 kWh ≈ 100 km mit Kleinwagen</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h4>Uran (Kernspaltung)</h4>
+                        <p><strong>Energiedichte:</strong> 80,000,000 MJ/kg</p>
+                        <p><strong>CO2-Emissionen:</strong> 12 g CO2/kWh</p>
+                        <p><strong>Wirkungsgrad (Strom):</strong> 30-35%</p>
+                        <p><strong>Speicherbarkeit:</strong> Hoch</p>
+                        <div class="everyday-comparison">
+                            <p>1 kg ≈ 24 Mio. kWh ≈ Strom für 8.000 Haushalte/Jahr</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h4>Photovoltaik</h4>
+                        <p><strong>Energiedichte:</strong> 100-200 W/m²</p>
+                        <p><strong>CO2-Emissionen:</strong> 40-60 g CO2/kWh</p>
+                        <p><strong>Wirkungsgrad:</strong> 15-22%</p>
+                        <p><strong>Speicherbarkeit:</strong> Niedrig (ohne Speicher)</p>
+                        <div class="everyday-comparison">
+                            <p>1 m² ≈ 150-200 kWh/Jahr ≈ 15-20 E-Auto-Ladungen</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h4>Windenergie</h4>
+                        <p><strong>Energiedichte:</strong> 400-600 W/m²</p>
+                        <p><strong>CO2-Emissionen:</strong> 10-20 g CO2/kWh</p>
+                        <p><strong>Wirkungsgrad:</strong> 30-50% (Betz-Limit)</p>
+                        <p><strong>Speicherbarkeit:</strong> Niedrig (ohne Speicher)</p>
+                        <div class="everyday-comparison">
+                            <p>1 Turbine ≈ 6 Mio. kWh/Jahr ≈ 1.500 Haushalte</p>
+                        </div>
+                    </div>
+                    <div class="energy-source-card">
+                        <h4>Wasserstoff</h4>
+                        <p><strong>Energiedichte:</strong> 120 MJ/kg</p>
+                        <p><strong>CO2-Emissionen:</strong> Abhängig von Herstellung</p>
+                        <p><strong>Wirkungsgrad (Rückverstromung):</strong> 40-60%</p>
+                        <p><strong>Speicherbarkeit:</strong> Mittel (Druck oder flüssig)</p>
+                        <div class="everyday-comparison">
+                            <p>1 kg ≈ 33 kWh ≈ 500 km mit Brennstoffzellenauto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Energiedörfer -->
+        <section id="energy-village" class="section">
+            <div class="card">
+                <h2>Energiedörfer: Lokale Energiewende</h2>
+                <p>Energiedörfer sind Gemeinden, die ihren Energiebedarf weitgehend oder vollständig aus lokalen, erneuerbaren Quellen decken. Sie zeigen, wie die Energiewende auf lokaler Ebene funktionieren kann.</p>
+                
+                <h3>Wildpoldsried - Ein Vorreiter in Deutschland</h3>
+                <p>Wildpoldsried, ein Dorf im Allgäu mit etwa 2.600 Einwohnern, hat sich zu einem international beachteten Modell für dezentrale Energieversorgung entwickelt.</p>
+                
+                <div class="image-container">
+                    <img src="https://energiewinde.orsted.de/assets/images/t/wildpoldsried-ortsschild-energieeffizenz-gemeinde-qt46wkqjtqc0321.webp" alt="Wildpoldsried">
+                    <p>Wildpoldsried , Quelle: Energiewinde</p>
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Wildpoldsried</div>
+                    <p>Wildpoldsried produziert etwa 5 Mal so viel Strom wie es verbraucht. Der Überschuss entspricht dem Jahresverbrauch von etwa 10.000 Haushalten. Das Dorf verdient damit jährlich mehrere Millionen Euro durch den Verkauf von Ökostrom.</p>
+                </div>
+                
+                <h4>Maßnahmen in Wildpoldsried:</h4>
+                <ul>
+                    <li><strong>Windenergie:</strong> 9 Windräder mit insgesamt 15 MW Leistung</li>
+                    <li><strong>Photovoltaik:</strong> Über 4.700 m² Solarpaneele auf öffentlichen und privaten Gebäuden</li>
+                    <li><strong>Biomasse:</strong> Biogasanlagen, die aus landwirtschaftlichen Abfällen Energie gewinnen</li>
+                    <li><strong>Wasserkraft:</strong> Nutzung kleiner lokaler Wasserläufe</li>
+                    <li><strong>Energieeffizienz:</strong> Sanierung von Gebäuden, LED-Beleuchtung, intelligente Netze</li>
+                </ul>
+                
+                <p>Ergebnis: Wildpoldsried produziert etwa 500% seines eigenen Strombedarfs und exportiert den Überschuss. Bei der Wärmeversorgung liegt die Autarkie bei etwa 75%.</p>
+                
+                <h3>Geographische Gegebenheiten</h3>
+                <p>Wildpoldsried profitiert von:</p>
+                <ul>
+                    <li>Günstigen Windverhältnissen in der hügeligen Voralpenlandschaft</li>
+                    <li>Viel Sonnenschein im Allgäu</li>
+                    <li>Starker landwirtschaftlicher Prägung (Biomasse)</li>
+                    <li>Engagierter Bürgerschaft und politischem Willen</li>
+                </ul>
+                
+                <h3>Ein weiteres Beispiel: Samsø (Dänemark)</h3>
+                <p>Die dänische Insel Samsø mit etwa 3.700 Einwohnern hat sich seit 1997 zu einem 100% erneuerbaren Energiesystem entwickelt.</p>
+                
+                <div class="image-container">
+                    <img src="https://www.visitsamsoe.dk/wp-content/uploads/2021/01/Visit-Sams%C3%B8-Energiakademiet-3428-a-1.jpg" alt="Samsø">
+                    <p>Samsø , Quelle: visitsamsoe</p>
+                </div>
+                
+                <h4>Maßnahmen auf Samsø:</h4>
+                <ul>
+                    <li>11 Onshore- und 10 Offshore-Windkraftanlagen</li>
+                    <li>Solarthermie und Biomasse für die Wärmeversorgung</li>
+                    <li>Strohheizung für öffentliche Gebäude</li>
+                    <li>Elektrofahrzeuge und Biogas für den Verkehr</li>
+                </ul>
+                
+                <h4>Geographische Besonderheiten:</h4>
+                <ul>
+                    <li>Insel mit starken und konstanten Winden</li>
+                    <li>Flaches Gelände ideal für Windkraft</li>
+                    <li>Kleine, überschaubare Gemeinschaft</li>
+                    <li>Starke Identifikation der Bewohner mit dem Projekt</li>
+                </ul>
+                
+                <h3>Simulation: Planen Sie Ihr eigenes Energiedorf</h3>
+                <div class="simulation-container">
+                    <div class="simulation-controls">
+                        <label for="villageType">Siedlungstyp:</label>
+                        <select id="villageType">
+                            <option value="village">Dorf (ca. 5.000 Einwohner)</option>
+                            <option value="town">Kleinstadt (10.000-50.000 Einwohner)</option>
+                        </select>
+                        
+                        <label for="regionType">Region:</label>
+                        <select id="regionType">
+                            <option value="north">Norddeutschland (viel Wind, wenig Sonne)</option>
+                            <option value="south">Süddeutschland (viel Sonne, mäßig Wind)</option>
+                            <option value="coast">Küstenregion (starker Wind, mäßig Sonne)</option>
+                            <option value="mountain">Bergregion (Wasserkraft, mäßig Wind/Sonne)</option>
+                        </select>
+                        
+                        <button id="calculateEnergy">Energiekonzept berechnen</button>
+                    </div>
+                    
+                    <div class="simulation-result" id="villageResult">
+                        <h4>Empfohlenes Energiekonzept:</h4>
+                        <p>Wählen Sie Siedlungstyp und Region, um ein passendes Energiekonzept zu erhalten.</p>
+                    </div>
+                </div>
+                
+                <h4>Möglichkeiten für ein Energiedorf:</h4>
+                <ul>
+                    <li><strong>Windkraft:</strong> Besonders effektiv in windreichen Regionen</li>
+                    <li><strong>Photovoltaik:</strong> Auf Dächern, Freiflächen oder als Agri-PV</li>
+                    <li><strong>Biomasse:</strong> Nutzung von landwirtschaftlichen Abfällen und Energiepflanzen</li>
+                    <li><strong>Wasserkraft:</strong> Wo möglich, auch kleine Anlagen</li>
+                    <li><strong>Geothermie:</strong> In geeigneten geologischen Regionen</li>
+                    <li><strong>Energiespeicher:</strong> Batterien, Power-to-Gas, Wärmespeicher</li>
+                    <li><strong>Energieeffizienz:</strong> Gebäudesanierung, Wärmerückgewinnung</li>
+                </ul>
+
+                <h3>Wildpoldsried: Ein deutsches Vorzeigeprojekt</h3>
+                <div class="chart-container">
+                    <canvas id="wildpoldsriedChart"></canvas>
+                </div>
+                
+                <h4>Ergebnisse und Kennzahlen</h4>
+                <div class="comparison-container">
+                    <div class="comparison-item">
+                        <h4>Energiebilanz</h4>
+                        <div class="data-point">
+                            <span class="data-label">Stromproduktion:</span>
+                            <span class="data-value">500% des Eigenbedarfs</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="data-label">Wärmeversorgung:</span>
+                            <span class="data-value">75% Autarkie</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="data-label">CO2-Reduktion:</span>
+                            <span class="data-value">6.500 t/Jahr</span>
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>Wirtschaftliche Effekte</h4>
+                        <div class="data-point">
+                            <span class="data-label">Investitionen:</span>
+                            <span class="data-value">50 Mio. €</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="data-label">Einnahmen:</span>
+                            <span class="data-value">5 Mio. €/Jahr</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="data-label">Arbeitsplätze:</span>
+                            <span class="data-value">150 geschaffen</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Energiedorf</div>
+                    <p>Die 6.500 Tonnen CO2, die Wildpoldsried jährlich einspart, entsprechen den Emissionen von etwa 3.000 Autos, die jeweils 15.000 km pro Jahr fahren. Die Einnahmen von 5 Millionen Euro pro Jahr entsprechen etwa 2.000 € pro Einwohner.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Persönlicher Energiebedarf -->
+        <section id="personal-energy" class="section">
+            <div class="card">
+                <h2>Persönlicher Energiebedarf</h2>
+                <p>Jeder von uns verbraucht täglich Energie - direkt durch Stromnutzung und indirekt durch Konsum und Mobilität. Der durchschnittliche Energiebedarf in Deutschland liegt bei etwa 120 kWh pro Person und Tag.</p>
+                
+                <div class="image-container">
+                    <img src="https://positionen.wienenergie.at/wp-content/uploads/2024/01/Energieverbrauch-pro-Kopf-in-der-EU-2021.png" alt="Energieverbrauch weltweit">
+                    <p>Energieverbrauch pro Kopf DE,Quelle: wien Energie</p>
+                </div>
+                
+                <div class="everyday-comparison">
+                    <div class="everyday-title">Alltagsvergleich: Energieverbrauch</div>
+                    <p>120 kWh pro Tag entsprechen etwa:</p>
+                    <ul>
+                        <li>12 Stunden Dauerbetrieb eines Haartrockners (1 kW)</li>
+                        <li>240 Stunden LED-Beleuchtung (50 W)</li>
+                        <li>24.000 Smartphone-Ladungen (5 Wh pro Ladung)</li>
+                        <li>60 km mit einem Elektroauto (2 kWh/10 km)</li>
+                        <li>12 Stunden Heizen eines Einfamilienhauses (10 kW Heizung)</li>
+                    </ul>
+                </div>
+                
+                <h3>Typische Energieverbräuche</h3>
+                <div class="image-container">
+                    <img src="https://www.stromauskunft.de/media/heidjann/images/stromverbrauch-haushalt.svg" alt="Energieverbrauch pro Person">
+                    <p>wo wird verbraucht , Quelle: stromauskunft</p>
+                </div>
+                
+                <h4>Energiefresser im Alltag:</h4>
+                <ul>
+                    <li><strong>Heizung:</strong> 50-70% des häuslichen Energieverbrauchs</li>
+                    <li><strong>Auto:</strong> 10-20 kWh pro 100 km (abhängig vom Modell)</li>
+                    <li><strong>Flugreisen:</strong> 30-50 kWh pro 100 km und Person</li>
+                    <li><strong>Elektronik:</strong> Standby-Verbräuche addieren sich</li>
+                </ul>
+                
+                <h4>Übersehene Energieverbräuche:</h4>
+                <ul>
+                    <li><strong>Lebensmittelproduktion:</strong> Besonders Fleisch und importierte Waren</li>
+                    <li><strong>Konsumgüter:</strong> Herstellung von Kleidung, Elektronik etc.</li>
+                    <li><strong>Warmwasser:</strong> Duschen, Baden, Geschirrspülen</li>
+                    <li><strong>Datenverkehr:</strong> Streaming, Cloud-Speicher</li>
+                </ul>
+                
+                <h3>"Licht oder Ladegeräte im Winter auszuschalten ist nicht nötig, da die umgewandelte Energie meine Wohnung heizt."</h3>
+                <p>Diese Aussage ist <strong>teilweise richtig, aber irreführend</strong>:</p>
+                <ul>
+                    <li><strong>Richtig ist:</strong> Die "verlorene" Energie von elektrischen Geräten wird letztlich in Wärme umgewandelt und heizt tatsächlich den Raum.</li>
+                    <li><strong>Problematisch ist:</strong>
+                        <ul>
+                            <li>Elektrische Heizung ist sehr ineffizient (Wirkungsgrad ca. 30% vom Kraftwerk bis zur Steckdose)</li>
+                            <li>Gezieltes Heizen mit einer Wärmepumpe oder Fernwärme ist viel effizienter</li>
+                            <li>Standby-Geräte erzeugen oft Wärme an ungeeigneten Stellen (z.B. hinter Schränken)</li>
+                            <li>Im Sommer führt dies zu zusätzlichem Kühlbedarf</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>Fazit:</strong> Auch im Winter sollte man Geräte ausschalten und lieber gezielt und effizient heizen.</p>
+                
+                <h3>Die 5 häufigsten Geräte im Haushalt und ihr Energieanteil</h3>
+                <div class="chart-container">
+                    <canvas id="applianceChart"></canvas>
+                </div>
+                
+                <h3>Berechnen Sie Ihren persönlichen Energiebedarf</h3>
+                <div class="simulation-container">
+                    <div class="simulation-controls">
+                        <label for="heatingType">Heizverhalten:</label>
+                        <select id="heatingType">
+                            <option value="low">Sparsam (Pullover tragen, 18-19°C)</option>
+                            <option value="medium" selected>Normal (20-21°C)</option>
+                            <option value="high">Großzügig (22°C und mehr)</option>
+                        </select>
+                        
+                        <label for="houseSize">Wohnfläche:</label>
+                        <select id="houseSize">
+                            <option value="small">Klein (bis 50 m²)</option>
+                            <option value="medium" selected>Mittel (50-100 m²)</option>
+                            <option value="large">Groß (über 100 m²)</option>
+                        </select>
+                        
+                        <label for="transportType">Mobilität:</label>
+                        <select id="transportType">
+                            <option value="low">Fuß/Rad/ÖPNV</option>
+                            <option value="medium" selected>Mischung (Auto + ÖPNV)</option>
+                            <option value="high">Hauptsächlich Auto</option>
+                            <option value="very-high">Viel Auto + Flugreisen</option>
+                        </select>
+                        
+                        <label for="diet">Ernährung:</label>
+                        <select id="diet">
+                            <option value="high">Hoch (täglich Fleisch)</option>
+                            <option value="medium" selected>Mittel (3-4 mal pro Woche)</option>
+                            <option value="low">Niedrig (selten oder vegetarisch)</option>
+                            <option value="vegan">Vegan</option>
+                        </select>
+                        
+                        <label for="consumption">Konsumverhalten:</label>
+                        <select id="consumption">
+                            <option value="high">Hoch (viele Neuanschaffungen)</option>
+                            <option value="medium" selected>Mittel (gelegentlich)</option>
+                            <option value="low">Niedrig (selten, reparieren)</option>
+                        </select>
+                        
+                        <button id="calculatePersonal">Berechnen</button>
+                    </div>
+                    
+                    <div class="simulation-result" id="personalResult">
+                        <h4>Ihr geschätzter Energiebedarf:</h4>
+                        <p>Füllen Sie die Felder aus und klicken Sie auf "Berechnen".</p>
+                    </div>
+                </div>
+                
+                <h3>Energiespartipps</h3>
+                <ul>
+                    <li><strong>Heizen:</strong> Temperatur um 1°C senken spart etwa 6% Energie</li>
+                    <li><strong>Beleuchtung:</strong> LED-Lampen verbrauchen 80% weniger als Glühbirnen</li>
+                    <li><strong>Mobilität:</strong> ÖPNV, Fahrrad oder Carsharing nutzen</li>
+                    <li><strong>Strom:</strong> Geräte ganz ausschalten, nicht im Standby lassen</li>
+                    <li><strong>Ernährung:</strong> Mehr pflanzliche, regionale und saisonale Produkte</li>
+                    <li><strong>Konsum:</strong> Langlebige Produkte kaufen, reparieren statt ersetzen</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://kita-global.de/wp-content/uploads/2022/09/energie-sparen-in-der-kita-1200x1200px.png" alt="Energiesparen">
+                    <p>Quelle: kita Global</p>
+                </div>
+
+                <h3>Mein Energiebedarf</h3>
+                <p>Als 3-köpfige Familie, die hauptsächlich öffentliche Verkehrsmittel nutzt und täglich mit dem Fahrrad zur Schule fährt, sieht unser Energieverbrauch wie folgt aus:</p>
+                
+                <div class="chart-container">
+                    <canvas id="myFamilyChart"></canvas>
+                </div>
+                
+                <h4>Details zu unserem Energieverbrauch</h4>
+                <div class="energy-distribution">
+                    <div class="energy-category">
+                        <h4>Heizung</h4>
+                        <p>10.000 kWh/Jahr (60%)</p>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                        <div class="everyday-comparison">
+                            <p>≈ 1000 Liter Heizöl ≈ 5000 Badewannen voll warmem Wasser</p>
+                        </div>
+                    </div>
+                    <div class="energy-category">
+                        <h4>Strom</h4>
+                        <p>3.000 kWh/Jahr (18%)</p>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 18%"></div>
+                        </div>
+                        <div class="everyday-comparison">
+                            <p>≈ 3000 Stunden Staubsaugen ≈ 6000 Smartphone-Ladungen</p>
+                        </div>
+                    </div>
+                    <div class="energy-category">
+                        <h4>Verkehr</h4>
+                        <p>800 kWh/Jahr (5%)</p>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 5%"></div>
+                        </div>
+                        <div class="everyday-comparison">
+                            <p>≈ 4000 km mit dem Bus ≈ 800 km mit dem Auto</p>
+                        </div>
+                    </div>
+                    <div class="energy-category">
+                        <h4>Warmwasser</h4>
+                        <p>2.500 kWh/Jahr (15%)</p>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 15%"></div>
+                        </div>
+                        <div class="everyday-comparison">
+                            <p>≈ 2500 Duschen ≈ 500 Badewannen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3>Quellen</h3>
+            <ul>
+                <li>Bundesministerium für Wirtschaft und Energie (2025): Energiedaten</li>
+                <li>International Energy Agency (IEA): World Energy Balances 2025</li>
+                <li>Umweltbundesamt (2025): Daten zur Umwelt</li>
+                <li>Dorn Bader Physik, 11. Klasse, 2025 Ausgabe</li>
+                <li>Gemeinde Wildpoldsried: Energiekonzept 2025</li>
+                <li>Samsø Energiakademi: Nachhaltigkeitsberichte 2025</li>
+                <li>Bildquellen: Wikimedia Commons (wie im Text angegeben)</li>
+                <li>Diese Website wurde von Yuchen als wissenschaftliches Projekt erstellt (2025)</li>
+            </ul>
+            <p>&copy; 2025 Energieversorgung Projektwebsite. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            }
+        });
+
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSection = link.getAttribute('data-section');
+                
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                document.getElementById(targetSection).classList.add('active');
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active-nav');
+                });
+                link.classList.add('active-nav');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Particle Simulation for Entropy
+        const tempSlider = document.getElementById('temperature');
+        const tempValue = document.getElementById('tempValue');
+        const currentTemp = document.getElementById('currentTemp');
+        const entropyValue = document.getElementById('entropyValue');
+        const observation = document.getElementById('observation');
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = 5;
+            }
+
+            update(speedFactor) {
+                this.x += this.vx * speedFactor;
+                this.y += this.vy * speedFactor;
+                
+                // Boundary collision
+                if (this.x < this.radius || this.x > canvas.width - this.radius) {
+                    this.vx = -this.vx;
+                }
+                if (this.y < this.radius || this.y > canvas.height - this.radius) {
+                    this.vy = -this.vy;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#3498db';
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        const particles = [];
+        for (let i = 0; i < 30; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const temp = parseInt(tempSlider.value);
+            const speedFactor = temp / 300; // Normalize to 300K
+            
+            particles.forEach(particle => {
+                particle.update(speedFactor);
+                particle.draw();
+            });
+            
+            // Calculate relative entropy (simplified for demonstration)
+            const relativeEntropy = (temp / 300).toFixed(2);
+            entropyValue.textContent = relativeEntropy;
+            
+            // Update observation text
+            if (temp < 200) {
+                observation.textContent = "Bei niedriger Temperatur bewegen sich die Teilchen langsam, die Entropie ist gering.";
+            } else if (temp < 400) {
+                observation.textContent = "Bei mittlerer Temperatur bewegen sich die Teilchen mäßig schnell, die Entropie ist mittelgroß.";
+            } else {
+                observation.textContent = "Bei hoher Temperatur bewegen sich die Teilchen sehr schnell, die Entropie ist hoch.";
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        tempSlider.addEventListener('input', () => {
+            const temp = tempSlider.value;
+            tempValue.textContent = temp;
+            currentTemp.textContent = temp;
+        });
+
+        animate();
+
+        // Energy Chart for Countries
+        const countrySelect = document.getElementById('countrySelect');
+        const updateChartBtn = document.getElementById('updateChart');
+        const energyChartCtx = document.getElementById('energyChart').getContext('2d');
+
+        let energyChart = new Chart(energyChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020', '2025'],
+                datasets: [
+                    {
+                        label: 'Fossile Energien',
+                        data: [85, 88, 92, 89, 86, 84, 80, 72, 68],
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Kernenergie',
+                        data: [0, 2, 5, 8, 12, 13, 11, 8, 7],
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Erneuerbare Energien',
+                        data: [15, 10, 3, 3, 2, 3, 9, 20, 25],
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Primärenergiebedarf in Deutschland (in %)'
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        function updateChartData(country) {
+            let title = '';
+            let fossilData = [];
+            let nuclearData = [];
+            let renewableData = [];
+            
+            switch(country) {
+                case 'germany':
+                    title = 'Primärenergiebedarf in Deutschland (in %)';
+                    fossilData = [85, 88, 92, 89, 86, 84, 80, 72, 68];
+                    nuclearData = [0, 2, 5, 8, 12, 13, 11, 8, 7];
+                    renewableData = [15, 10, 3, 3, 2, 3, 9, 20, 25];
+                    break;
+                case 'europe':
+                    title = 'Primärenergiebedarf in europäischen Ländern (Durchschnitt, in %)';
+                    fossilData = [90, 89, 87, 85, 82, 79, 75, 68, 63];
+                    nuclearData = [0, 1, 4, 7, 11, 14, 13, 12, 11];
+                    renewableData = [10, 10, 9, 8, 7, 7, 12, 20, 26];
+                    break;
+                case 'usa':
+                    title = 'Primärenergiebedarf in den USA (in %)';
+                    fossilData = [92, 91, 89, 87, 85, 84, 80, 75, 70];
+                    nuclearData = [0, 0, 2, 5, 9, 10, 10, 9, 8];
+                    renewableData = [8, 9, 9, 8, 6, 6, 10, 16, 22];
+                    break;
+                case 'china':
+                    title = 'Primärenergiebedarf in China (in %)';
+                    fossilData = [95, 94, 93, 92, 90, 88, 85, 78, 72];
+                    nuclearData = [0, 0, 0, 1, 2, 3, 4, 5, 6];
+                    renewableData = [5, 6, 7, 7, 8, 9, 11, 17, 22];
+                    break;
+                case 'world':
+                    title = 'Primärenergiebedarf weltweit (in %)';
+                    fossilData = [93, 92, 91, 89, 87, 85, 82, 78, 73];
+                    nuclearData = [0, 0, 1, 3, 5, 6, 6, 5, 5];
+                    renewableData = [7, 8, 8, 8, 8, 9, 12, 17, 22];
+                    break;
+            }
+            
+            energyChart.data.datasets[0].data = fossilData;
+            energyChart.data.datasets[1].data = nuclearData;
+            energyChart.data.datasets[2].data = renewableData;
+            energyChart.options.plugins.title.text = title;
+            energyChart.update();
+        }
+
+        updateChartBtn.addEventListener('click', () => {
+            updateChartData(countrySelect.value);
+        });
+
+        // Village Simulation
+        const villageType = document.getElementById('villageType');
+        const regionType = document.getElementById('regionType');
+        const calculateEnergyBtn = document.getElementById('calculateEnergy');
+        const villageResult = document.getElementById('villageResult');
+
+        calculateEnergyBtn.addEventListener('click', () => {
+            const type = villageType.value;
+            const region = regionType.value;
+            
+            let population = type === 'village' ? '5.000' : '25.000';
+            let energyNeeds = type === 'village' ? '15.000 kWh/Tag' : '75.000 kWh/Tag';
+            
+            let recommendations = '';
+            
+            if (region === 'north') {
+                recommendations = `
+                    <ul>
+                        <li><strong>Windkraft:</strong> 5-10 Windräder (je nach Größe)</li>
+                        <li><strong>Biomasse:</strong> Nutzung landwirtschaftlicher Abfälle</li>
+                        <li><strong>Solarenergie:</strong> Begrenzter Einsatz auf Dächern</li>
+                        <li><strong>Energiespeicher:</strong> Batteriespeicher für Windflauten</li>
+                    </ul>
+                    <p>Norddeutschland bietet hervorragende Windverhältnisse, aber weniger Sonnenstunden. Windkraft sollte daher im Mittelpunkt stehen.</p>
+                    <div class="everyday-comparison">
+                        <p>10 Windräder (3 MW) könnten etwa 60.000 kWh/Tag produzieren - genug für 4.000 Haushalte!</p>
+                    </div>
+                `;
+            } else if (region === 'south') {
+                recommendations = `
+                    <ul>
+                        <li><strong>Photovoltaik:</strong> Großflächige Installation auf Dächern und Freiflächen</li>
+                        <li><strong>Wasserkraft:</strong> Nutzung kleiner Flüsse und Bäche</li>
+                        <li><strong>Biomasse:</strong> Forstwirtschaftliche Reststoffe</li>
+                        <li><strong>Geothermie:</strong> In geeigneten Lagen</li>
+                    </ul>
+                    <p>Süddeutschland hat viele Sonnenstunden und bergige Regionen für Wasserkraft. Photovoltaik sollte Priorität haben.</p>
+                    <div class="everyday-comparison">
+                        <p>50.000 m² Solarpaneele könnten etwa 25.000 kWh/Tag produzieren - das entspricht der Fläche von 7 Fußballfeldern!</p>
+                    </div>
+                `;
+            } else if (region === 'coast') {
+                recommendations = `
+                    <ul>
+                        <li><strong>Offshore-Windkraft:</strong> Bei Küstennähe besonders effektiv</li>
+                        <li><strong>Onshore-Windkraft:</strong> Ergänzend an windexponierten Lagen</li>
+                        <li><strong>Solarenergie:</strong> Mäßiger Einsatz</li>
+                        <li><strong>Energiespeicher:</strong> Power-to-Gas für saisonale Speicherung</li>
+                    </ul>
+                    <p>Küstenregionen haben starke und stetige Winde, ideal für Windenergie. Offshore-Anlagen sind besonders effizient.</p>
+                    <div class="everyday-comparison">
+                        <p>5 Offshore-Windräder (6 MW) könnten etwa 72.000 kWh/Tag produzieren - genug für 5.000 Haushalte!</p>
+                    </div>
+                `;
+            } else if (region === 'mountain') {
+                recommendations = `
+                    <ul>
+                        <li><strong>Wasserkraft:</strong> Speicher- und Laufwasserkraftwerke</li>
+                        <li><strong>Windkraft:</strong> An exponierten Bergkämmen</li>
+                        <li><strong>Solarenergie:</strong> Auf Südhängen</li>
+                        <li><strong>Energiespeicher:</strong> Pumpspeicherkraftwerke</li>
+                    </ul>
+                    <p>Bergregionen eignen sich hervorragend für Wasserkraft und bieten oft gute Windverhältnisse in höheren Lagen.</p>
+                    <div class="everyday-comparison">
+                        <p>Ein kleines Pumpspeicherwerk mit 10.000 m³ Wasser und 200 m Fallhöhe könnte etwa 5.000 kWh speichern - genug für 300 Haushalte für einen Tag!</p>
+                    </div>
+                `;
+            }
+            
+            villageResult.innerHTML = `
+                <h4>Empfohlenes Energiekonzept für ein ${type === 'village' ? 'Dorf' : 'Kleinstadt'} mit ${population} Einwohnern in ${getRegionName(region)}:</h4>
+                <p>Geschätzter Energiebedarf: ${energyNeeds}</p>
+                ${recommendations}
+            `;
+        });
+
+        function getRegionName(region) {
+            switch(region) {
+                case 'north': return 'Norddeutschland';
+                case 'south': return 'Süddeutschland';
+                case 'coast': return 'einer Küstenregion';
+                case 'mountain': return 'einer Bergregion';
+                default: return '';
+            }
+        }
+
+        // Appliance Chart
+        const applianceChartCtx = document.getElementById('applianceChart').getContext('2d');
+        const applianceChart = new Chart(applianceChartCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Kühlschrank', 'Heizungspumpe', 'Waschmaschine', 'Fernseher', 'Computer'],
+                datasets: [{
+                    data: [25, 20, 15, 15, 10],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Energieanteil der 5 häufigsten Haushaltsgeräte'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${percentage}% (≈${value*40} kWh/Jahr ≈ ${value*4}€/Jahr)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Personal Energy Calculator
+        const calculatePersonalBtn = document.getElementById('calculatePersonal');
+        const personalResult = document.getElementById('personalResult');
+
+        calculatePersonalBtn.addEventListener('click', () => {
+            const heatingType = document.getElementById('heatingType').value;
+            const houseSize = document.getElementById('houseSize').value;
+            const transportType = document.getElementById('transportType').value;
+            const diet = document.getElementById('diet').value;
+            const consumption = document.getElementById('consumption').value;
+            
+            // Calculate heating energy
+            let heatingEnergy = 0;
+            if (heatingType === 'low') {
+                heatingEnergy = houseSize === 'small' ? 10 : houseSize === 'medium' ? 20 : 30;
+            } else if (heatingType === 'medium') {
+                heatingEnergy = houseSize === 'small' ? 15 : houseSize === 'medium' ? 30 : 45;
+            } else {
+                heatingEnergy = houseSize === 'small' ? 20 : houseSize === 'medium' ? 40 : 60;
+            }
+            
+            // Calculate transport energy
+            let transportEnergy = 0;
+            switch(transportType) {
+                case 'low': transportEnergy = 5; break;
+                case 'medium': transportEnergy = 15; break;
+                case 'high': transportEnergy = 30; break;
+                case 'very-high': transportEnergy = 50; break;
+            }
+            
+            // Calculate diet energy
+            let dietEnergy = 0;
+            switch(diet) {
+                case 'high': dietEnergy = 30; break;
+                case 'medium': dietEnergy = 20; break;
+                case 'low': dietEnergy = 15; break;
+                case 'vegan': dietEnergy = 10; break;
+            }
+            
+            // Calculate consumption energy
+            let consumptionEnergy = 0;
+            switch(consumption) {
+                case 'high': consumptionEnergy = 40; break;
+                case 'medium': consumptionEnergy = 25; break;
+                case 'low': consumptionEnergy = 10; break;
+            }
+            
+            // Other energy (electricity, warm water)
+            const otherEnergy = houseSize === 'small' ? 10 : houseSize === 'medium' ? 15 : 20;
+            
+            const totalEnergy = heatingEnergy + transportEnergy + dietEnergy + consumptionEnergy + otherEnergy;
+            const germanAverage = 120;
+            const worldAverage = 55;
+            
+            let comparisonExamples = '';
+            if (totalEnergy > 100) {
+                comparisonExamples = `
+                    <p>Das entspricht etwa:</p>
+                    <ul>
+                        <li>${Math.round(totalEnergy/10)} Stunden Heizen eines Einfamilienhauses</li>
+                        <li>${Math.round(totalEnergy*100)} km mit einem Kleinwagen</li>
+                        <li>${Math.round(totalEnergy*20)} Smartphone-Ladungen</li>
+                    </ul>
+                `;
+            } else {
+                comparisonExamples = `
+                    <p>Das entspricht etwa:</p>
+                    <ul>
+                        <li>${Math.round(totalEnergy*10)} Stunden LED-Beleuchtung (100W)</li>
+                        <li>${Math.round(totalEnergy*2)} Ladungen eines E-Autos</li>
+                        <li>${Math.round(totalEnergy*20)} Stunden Fernsehen</li>
+                    </ul>
+                `;
+            }
+            
+            personalResult.innerHTML = `
+                <h4>Ihr geschätzter Energiebedarf:</h4>
+                <p><strong>${totalEnergy.toFixed(1)} kWh pro Tag</strong></p>
+                ${comparisonExamples}
+                <p>Zum Vergleich:</p>
+                <ul>
+                    <li>Durchschnitt in Deutschland: ${germanAverage} kWh/Tag</li>
+                    <li>Weltdurchschnitt: ${worldAverage} kWh/Tag</li>
+                </ul>
+                <p>Zusammensetzung:</p>
+                <ul>
+                    <li>Heizung: ${heatingEnergy} kWh/Tag</li>
+                    <li>Strom & Warmwasser: ${otherEnergy} kWh/Tag</li>
+                    <li>Transport: ${transportEnergy} kWh/Tag</li>
+                    <li>Ernährung: ${dietEnergy} kWh/Tag</li>
+                    <li>Konsum: ${consumptionEnergy} kWh/Tag</li>
+                </ul>
+                ${totalEnergy > germanAverage ? 
+                    '<div class="everyday-comparison"><p>Ihr Verbrauch liegt über dem deutschen Durchschnitt. Überlegen Sie, wo Sie Energie einsparen können - z.B. durch Heizungsoptimierung oder weniger Autofahrten.</p></div>' : 
+                    '<div class="everyday-comparison"><p>Ihr Verbrauch liegt unter dem deutschen Durchschnitt. Gut gemacht! Sie leben bereits energiebewusster als die meisten Deutschen.</p></div>'}
+            `;
+        });
+
+        // Carnot Efficiency Simulation
+        const hotTempSlider = document.getElementById('hotTemp');
+        const hotTempValue = document.getElementById('hotTempValue');
+        const coldTempSlider = document.getElementById('coldTemp');
+        const coldTempValue = document.getElementById('coldTempValue');
+        const carnotEfficiency = document.getElementById('carnotEfficiency');
+        const realEfficiency = document.getElementById('realEfficiency');
+        const efficiencyBar = document.getElementById('efficiencyBar');
+
+        function updateEfficiency() {
+            const hotTemp = parseInt(hotTempSlider.value);
+            const coldTemp = parseInt(coldTempSlider.value);
+            
+            hotTempValue.textContent = hotTemp;
+            coldTempValue.textContent = coldTemp;
+            
+            if (hotTemp <= coldTemp) {
+                carnotEfficiency.textContent = "0.00%";
+                realEfficiency.textContent = "0.00%";
+                efficiencyBar.style.width = "0%";
+                return;
+            }
+            
+            const efficiency = 1 - (coldTemp / hotTemp);
+            const realEff = efficiency * 0.7; // Assuming 70% of Carnot efficiency
+            
+            carnotEfficiency.textContent = (efficiency * 100).toFixed(2) + "%";
+            realEfficiency.textContent = (realEff * 100).toFixed(2) + "%";
+            efficiencyBar.style.width = (efficiency * 100) + "%";
+        }
+
+        hotTempSlider.addEventListener('input', updateEfficiency);
+        coldTempSlider.addEventListener('input', updateEfficiency);
+        updateEfficiency();
+
+        // Energy Comparison Chart
+        const energyComparisonCtx = document.getElementById('energyComparisonChart').getContext('2d');
+        const energyComparisonChart = new Chart(energyComparisonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Steinkohle', 'Erdgas', 'Uran', 'Photovoltaik', 'Wind', 'Wasserstoff'],
+                datasets: [
+                    {
+                        label: 'Energiedichte (MJ/kg)',
+                        data: [28, 50, 80000000, 0.0002, 0.0005, 120],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'CO2-Emissionen (g/kWh)',
+                        data: [340, 200, 12, 50, 15, 0],
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Vergleich von Energieträgern'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.datasetIndex === 0) {
+                                    label += context.raw.toLocaleString() + ' MJ/kg';
+                                } else {
+                                    label += context.raw + ' g/kWh';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'logarithmic',
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Energiedichte (MJ/kg, log)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'CO2-Emissionen (g/kWh)'
+                        },
+                        min: 0,
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Wildpoldsried Chart
+        const wildpoldsriedCtx = document.getElementById('wildpoldsriedChart').getContext('2d');
+        const wildpoldsriedChart = new Chart(wildpoldsriedCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Windkraft', 'Photovoltaik', 'Biomasse', 'Wasserkraft'],
+                datasets: [{
+                    label: 'Installierte Leistung (kW)',
+                    data: [15000, 1200, 550, 200],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Energieerzeugung in Wildpoldsried nach Technologie'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                return `${label}: ${value} kW ≈ ${value*2000} kWh/Tag`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // My Family Energy Chart
+        const myFamilyCtx = document.getElementById('myFamilyChart').getContext('2d');
+        const myFamilyChart = new Chart(myFamilyCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Heizung', 'Strom', 'Verkehr', 'Warmwasser'],
+                datasets: [{
+                    data: [10000, 3000, 800, 2500],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Energieverbrauch meiner Familie (kWh/Jahr)'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} kWh (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
